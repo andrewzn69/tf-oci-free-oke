@@ -67,6 +67,11 @@ variable "node_ocpus" {
     condition     = var.node_ocpus >= 1
     error_message = "node_ocpus must be at least 1"
   }
+
+  validation {
+    condition     = var.node_count * var.node_ocpus <= 4
+    error_message = "Total OCPUs (node_count * node_ocpus) must not exceed 4 (OCI free tier limit)"
+  }
 }
 
 variable "node_memory_gb" {
@@ -77,6 +82,11 @@ variable "node_memory_gb" {
   validation {
     condition     = var.node_memory_gb >= 1
     error_message = "node_memory_gb must be at least 1"
+  }
+
+  validation {
+    condition     = var.node_count * var.node_memory_gb <= 24
+    error_message = "Total memory (node_count * node_memory_gb) must not exceed 24 GB (OCI free tier limit)"
   }
 }
 
