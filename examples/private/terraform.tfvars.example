@@ -1,0 +1,18 @@
+compartment_id = "ocid1.compartment.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+name           = "mycluster"
+
+kubernetes_version = "v1.32.1"
+
+bastion_allowed_cidrs = ["0.0.0.0/0"]
+
+node_count               = 2
+node_ocpus               = 2
+node_memory_gb           = 12
+node_boot_volume_size_gb = 50
+node_data_volume_size_gb = 50
+
+ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyExampleKeyExampleKeyExampleKeyEx user@host"
+
+freeform_tags = {
+  env = "example"
+}
