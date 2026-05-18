@@ -112,6 +112,12 @@ variable "node_data_volume_size_gb" {
   }
 }
 
+variable "install_flannel" {
+  description = "Install OKE-managed Flannel CNI. Set to false to bring your own CNI."
+  type        = bool
+  default     = true
+}
+
 # network
 
 variable "vcn_cidr_block" {
