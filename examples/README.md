@@ -45,5 +45,5 @@ All examples expect these variables:
 ```hcl
 compartment_id     = "ocid1.compartment.oc1..<...>"
 name               = "<cluster-name>"
-kubernetes_version = "v1.32.1"
+kubernetes_version = "v1.36.1"
 ```
