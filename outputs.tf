@@ -1,0 +1,27 @@
+# outputs.tf
+
+output "cluster_id" {
+  description = "OCID of the OKE cluster"
+  value       = oci_containerengine_cluster.this.id
+}
+
+output "kubeconfig" {
+  description = "Raw kubeconfig for the cluster"
+  value       = data.oci_containerengine_cluster_kube_config.this.content
+  sensitive   = true
+}
+
+output "cluster_endpoint" {
+  description = "Kubernetes API endpoint"
+  value       = oci_containerengine_cluster.this.endpoints[0].kubernetes
+}
+
+output "bastion_id" {
+  description = "OCID of the bastion service. Empty string when create_bastion is false."
+  value       = var.create_bastion ? oci_bastion_bastion.this[0].id : ""
+}
+
+output "node_ids" {
+  description = "Compute instance OCIDs of all worker nodes"
+  value       = [for node in oci_containerengine_node_pool.this.nodes : node.id]
+}
