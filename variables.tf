@@ -3,8 +3,8 @@
 # oci
 
 variable "compartment_id" {
-  description = "OCID of the compartment"
   type        = string
+  description = "OCID of the compartment"
 
   validation {
     condition     = can(regex("^ocid1\\.", var.compartment_id))
@@ -13,8 +13,8 @@ variable "compartment_id" {
 }
 
 variable "name" {
-  description = "Name used for the cluster and all resource display names"
   type        = string
+  description = "Name used for the cluster and all resource display names"
 
   validation {
     condition     = can(regex("^[a-z][a-z0-9]{0,14}$", var.name))
@@ -25,8 +25,8 @@ variable "name" {
 # cluster
 
 variable "kubernetes_version" {
-  description = "Kubernetes version"
   type        = string
+  description = "Kubernetes version"
 
   validation {
     condition     = can(regex("^v[0-9]+\\.[0-9]+\\.[0-9]+$", var.kubernetes_version))
@@ -35,8 +35,8 @@ variable "kubernetes_version" {
 }
 
 variable "control_plane_type" {
-  description = "Whether to allow public or private access to the control plane endpoint"
   type        = string
+  description = "Whether to allow public or private access to the control plane endpoint"
   default     = "private"
 
   validation {
@@ -48,8 +48,8 @@ variable "control_plane_type" {
 # node pool
 
 variable "node_count" {
-  description = "Number of worker nodes"
   type        = number
+  description = "Number of worker nodes"
   default     = 2
 
   validation {
@@ -59,8 +59,8 @@ variable "node_count" {
 }
 
 variable "node_ocpus" {
-  description = "OCPUs per worker node"
   type        = number
+  description = "OCPUs per worker node"
   default     = 2
 
   validation {
@@ -75,8 +75,8 @@ variable "node_ocpus" {
 }
 
 variable "node_memory_gb" {
-  description = "Memory in GB per worker node"
   type        = number
+  description = "Memory in GB per worker node"
   default     = 12
 
   validation {
@@ -91,8 +91,8 @@ variable "node_memory_gb" {
 }
 
 variable "node_boot_volume_size_gb" {
-  description = "Boot volume size in GB per worker node"
   type        = number
+  description = "Boot volume size in GB per worker node"
   default     = 50
 
   validation {
@@ -102,8 +102,8 @@ variable "node_boot_volume_size_gb" {
 }
 
 variable "node_data_volume_size_gb" {
-  description = "Size in GB of the data block volume attached to each worker node, for persistent storage. Minimum 50. Set null to skip."
   type        = number
+  description = "Size in GB of the data block volume attached to each worker node, for persistent storage. Minimum 50. Set null to skip."
   default     = null
 
   validation {
@@ -113,16 +113,16 @@ variable "node_data_volume_size_gb" {
 }
 
 variable "install_flannel" {
-  description = "Install OKE-managed Flannel CNI. Set to false to bring your own CNI."
   type        = bool
+  description = "Install OKE-managed Flannel CNI. Set to false to bring your own CNI."
   default     = true
 }
 
 # network
 
 variable "vcn_cidr_block" {
-  description = "CIDR block for the VCN"
   type        = string
+  description = "CIDR block for the VCN"
   default     = "10.0.0.0/16"
 
   validation {
@@ -132,8 +132,8 @@ variable "vcn_cidr_block" {
 }
 
 variable "endpoint_subnet_cidr_block" {
-  description = "CIDR block for the cluster endpoint and LB subnet"
   type        = string
+  description = "CIDR block for the cluster endpoint and LB subnet"
   default     = "10.0.0.0/24"
 
   validation {
@@ -143,8 +143,8 @@ variable "endpoint_subnet_cidr_block" {
 }
 
 variable "nodes_subnet_cidr_block" {
-  description = "CIDR block for the worker nodes subnet"
   type        = string
+  description = "CIDR block for the worker nodes subnet"
   default     = "10.0.1.0/24"
 
   validation {
@@ -154,8 +154,8 @@ variable "nodes_subnet_cidr_block" {
 }
 
 variable "pods_cidr" {
-  description = "CIDR for pod networking"
   type        = string
+  description = "CIDR for pod networking"
   default     = "10.244.0.0/16"
 
   validation {
@@ -165,8 +165,8 @@ variable "pods_cidr" {
 }
 
 variable "services_cidr" {
-  description = "CIDR for service networking"
   type        = string
+  description = "CIDR for service networking"
   default     = "10.96.0.0/16"
 
   validation {
@@ -178,8 +178,8 @@ variable "services_cidr" {
 # security
 
 variable "control_plane_allowed_cidrs" {
-  description = "CIDRs allowed to reach the control plane endpoint. Only applies when control_plane_type is public"
   type        = list(string)
+  description = "CIDRs allowed to reach the control plane endpoint. Only applies when control_plane_type is public"
   default     = []
 
   validation {
@@ -194,7 +194,6 @@ variable "control_plane_allowed_cidrs" {
 }
 
 variable "extra_endpoint_ingress_rules" {
-  description = "Extra ingress rules for the endpoint subnet security list"
   type = list(object({
     source    = string
     protocol  = string
@@ -208,11 +207,11 @@ variable "extra_endpoint_ingress_rules" {
       max = number
     }))
   }))
-  default = []
+  description = "Extra ingress rules for the endpoint subnet security list"
+  default     = []
 }
 
 variable "extra_nodes_ingress_rules" {
-  description = "Extra ingress rules for the nodes subnet security list"
   type = list(object({
     source    = string
     protocol  = string
@@ -226,18 +225,19 @@ variable "extra_nodes_ingress_rules" {
       max = number
     }))
   }))
-  default = []
+  description = "Extra ingress rules for the nodes subnet security list"
+  default     = []
 }
 
 variable "create_bastion" {
-  description = "Create an OCI Bastion Service for accessing the private cluster endpoint."
   type        = bool
+  description = "Create an OCI Bastion Service for accessing the private cluster endpoint."
   default     = true
 }
 
 variable "bastion_allowed_cidrs" {
-  description = "CIDRs allowed to connect to the bastion service"
   type        = list(string)
+  description = "CIDRs allowed to connect to the bastion service"
   default     = []
 
   validation {
@@ -254,8 +254,8 @@ variable "bastion_allowed_cidrs" {
 # ssh
 
 variable "ssh_public_key" {
-  description = "SSH public key for node access"
   type        = string
+  description = "SSH public key for node access"
   default     = null
 
   validation {
@@ -267,22 +267,22 @@ variable "ssh_public_key" {
 # tags
 
 variable "freeform_tags" {
-  description = "Freeform tags to apply to all resources"
   type        = map(string)
+  description = "Freeform tags to apply to all resources"
   default     = {}
 }
 
 # cloud init
 
 variable "cloud_init_local" {
-  description = "Full cloud-init script as a string, replaces the default cloud-init.sh"
   type        = string
+  description = "Full cloud-init script as a string, replaces the default cloud-init.sh"
   default     = null
 }
 
 variable "cloud_init_url" {
-  description = "URL to fetch cloud-init script from, replaces the default cloud-init.sh"
   type        = string
+  description = "URL to fetch cloud-init script from, replaces the default cloud-init.sh"
   default     = null
 
   validation {
