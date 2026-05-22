@@ -1,0 +1,8 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  ci:
+    uses: andrewzn69/.github/.github/workflows/tf-module-ci.yaml@master
