@@ -8,3 +8,6 @@ on:
 jobs:
   release:
     uses: andrewzn69/.github/.github/workflows/tf-module-release.yaml@master
+    permissions:
+      contents: write
+      pull-requests: write
