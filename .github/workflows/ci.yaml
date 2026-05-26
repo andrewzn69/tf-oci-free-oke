@@ -7,5 +7,12 @@ on:
       - master
 
 jobs:
-  ci:
+  terraform:
     uses: andrewzn69/.github/.github/workflows/tf-module-ci.yaml@master
+
+  ci:
+    needs: [terraform]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - run: '[ "${{ needs.terraform.result }}" = "success" ]'
