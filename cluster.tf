@@ -33,6 +33,13 @@ data "oci_containerengine_cluster_kube_config" "this" {
   cluster_id = oci_containerengine_cluster.this.id
 }
 
+# re-read after create completes - endpoints[0].kubernetes on the resource itself
+# can still be "" right after creation while OCI finishes provisioning the endpoint
+data "oci_containerengine_cluster" "refreshed" {
+  cluster_id = oci_containerengine_cluster.this.id
+  depends_on = [oci_containerengine_cluster.this]
+}
+
 resource "oci_containerengine_cluster" "this" {
   compartment_id     = var.compartment_id
   kubernetes_version = var.kubernetes_version
@@ -106,4 +113,11 @@ resource "oci_containerengine_node_pool" "this" {
   ssh_public_key = var.ssh_public_key
 
   freeform_tags = var.freeform_tags
+}
+
+# re-read after create completes - nodes[].id on the resource itself can still
+# be empty right after creation while OCI finishes provisioning the instances
+data "oci_containerengine_node_pool" "refreshed" {
+  node_pool_id = oci_containerengine_node_pool.this.id
+  depends_on   = [oci_containerengine_node_pool.this]
 }
