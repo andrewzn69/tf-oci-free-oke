@@ -13,7 +13,7 @@ output "kubeconfig" {
 
 output "cluster_endpoint" {
   description = "Kubernetes API endpoint"
-  value       = data.oci_containerengine_cluster.refreshed.endpoints[0].kubernetes
+  value       = var.control_plane_type == "public" ? data.oci_containerengine_cluster.refreshed.endpoints[0].public_endpoint : data.oci_containerengine_cluster.refreshed.endpoints[0].private_endpoint
 }
 
 output "bastion_id" {
