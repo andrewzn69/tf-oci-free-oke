@@ -13,7 +13,6 @@ resource "oci_core_volume" "data" {
 resource "oci_core_volume_attachment" "data" {
   count           = var.node_data_volume_size_gb != null ? var.node_count : 0
   attachment_type = "paravirtualized"
-  # nodes[count.index].id is the compute instance OCID - only populated after node pool is fully provisioned
-  instance_id = oci_containerengine_node_pool.this.nodes[count.index].id
-  volume_id   = oci_core_volume.data[count.index].id
+  instance_id     = data.oci_containerengine_node_pool.refreshed.nodes[count.index].id
+  volume_id       = oci_core_volume.data[count.index].id
 }

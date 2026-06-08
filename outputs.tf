@@ -13,7 +13,7 @@ output "kubeconfig" {
 
 output "cluster_endpoint" {
   description = "Kubernetes API endpoint"
-  value       = oci_containerengine_cluster.this.endpoints[0].kubernetes
+  value       = data.oci_containerengine_cluster.refreshed.endpoints[0].kubernetes
 }
 
 output "bastion_id" {
@@ -23,5 +23,5 @@ output "bastion_id" {
 
 output "node_ids" {
   description = "Compute instance OCIDs of all worker nodes"
-  value       = [for node in oci_containerengine_node_pool.this.nodes : node.id]
+  value       = [for node in data.oci_containerengine_node_pool.refreshed.nodes : node.id]
 }
