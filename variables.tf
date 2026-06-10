@@ -66,18 +66,6 @@ variable "nodes_subnet_cidr_block" {
   }
 }
 
-variable "lb_subnet_cidr_block" {
-  type        = string
-  description = "CIDR block for the public load balancer subnet. When set, a public subnet is created and wired into service_lb_subnet_ids."
-  default     = null
-  nullable    = true
-
-  validation {
-    condition     = var.lb_subnet_cidr_block == null || can(cidrhost(var.lb_subnet_cidr_block, 0))
-    error_message = "lb_subnet_cidr_block must be a valid CIDR or null"
-  }
-}
-
 variable "pods_cidr" {
   type        = string
   description = "CIDR for pod networking"

@@ -25,8 +25,3 @@ output "node_ids" {
   description = "Compute instance OCIDs of all worker nodes"
   value       = [for node in data.oci_containerengine_node_pool.refreshed.nodes : node.id]
 }
-
-output "lb_subnet_id" {
-  description = "OCID of the public LB subnet, empty string when lb_subnet_cidr_block is not set"
-  value       = var.lb_subnet_cidr_block != null ? oci_core_subnet.lb[0].id : ""
-}
