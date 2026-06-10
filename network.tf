@@ -172,35 +172,3 @@ resource "oci_core_subnet" "nodes" {
   prohibit_public_ip_on_vnic = true
   freeform_tags              = var.freeform_tags
 }
-
-resource "oci_core_security_list" "lb" {
-  count          = var.lb_subnet_cidr_block != null ? 1 : 0
-  compartment_id = var.compartment_id
-  vcn_id         = oci_core_vcn.this.id
-  display_name   = "${var.name}-lb-sl"
-  freeform_tags  = var.freeform_tags
-
-  egress_security_rules {
-    destination = "0.0.0.0/0"
-    protocol    = "all"
-    stateless   = false
-  }
-
-  ingress_security_rules {
-    source    = "0.0.0.0/0"
-    protocol  = "all"
-    stateless = false
-  }
-}
-
-resource "oci_core_subnet" "lb" {
-  count             = var.lb_subnet_cidr_block != null ? 1 : 0
-  compartment_id    = var.compartment_id
-  vcn_id            = oci_core_vcn.this.id
-  display_name      = "${var.name}-lb-subnet"
-  cidr_block        = var.lb_subnet_cidr_block
-  route_table_id    = oci_core_route_table.igw.id
-  security_list_ids = [oci_core_security_list.lb[0].id]
-  dns_label         = "lb"
-  freeform_tags     = var.freeform_tags
-}

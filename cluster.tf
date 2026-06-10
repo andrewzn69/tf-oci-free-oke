@@ -59,7 +59,7 @@ resource "oci_containerengine_cluster" "this" {
   }
 
   options {
-    service_lb_subnet_ids = var.lb_subnet_cidr_block != null ? [oci_core_subnet.lb[0].id] : []
+    service_lb_subnet_ids = []
     add_ons {
       is_kubernetes_dashboard_enabled = false
       is_tiller_enabled               = false
