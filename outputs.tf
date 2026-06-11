@@ -1,5 +1,15 @@
 # outputs.tf
 
+output "vcn_id" {
+  description = "OCID of the VCN"
+  value       = oci_core_vcn.this.id
+}
+
+output "internet_gateway_id" {
+  description = "OCID of the VCN's Internet Gateway"
+  value       = oci_core_internet_gateway.this.id
+}
+
 output "cluster_id" {
   description = "OCID of the OKE cluster"
   value       = oci_containerengine_cluster.this.id
